@@ -1,25 +1,43 @@
-import clsx from "clsx";
 import css from "./VoteOptions.module.css";
+import type { VoteType } from "../../types/votes";
 
-const buttons = [
-  { name: "Good", value: "good" },
-  { name: "Neutral", value: "neutral" },
-  { name: "Bad", value: "bad" },
-  { name: "Reset", value: "reset" },
-];
+interface VoteOptionsProps {
+  handleVote: (type: VoteType) => void;
+  onReset: () => void;
+}
 
-const VoteOptions = () => {
+const VoteOptions = ({ handleVote, onReset }: VoteOptionsProps) => {
   return (
-    <ul className={css.container}>
-      {buttons.map((item) => (
-        <li key={item.value}>
-          <button className={clsx(css.button, css[item.value])}>
-            {item.name}
-          </button>
-        </li>
-      ))}
-    </ul>
+    <div className={css.container}>
+      <button
+        type="button"
+        className={css.button}
+        onClick={() => handleVote("good")}
+      >
+        Good
+      </button>
+      <button
+        type="button"
+        className={css.button}
+        onClick={() => handleVote("neutral")}
+      >
+        Neutral
+      </button>
+      <button
+        type="button"
+        className={css.button}
+        onClick={() => handleVote("bad")}
+      >
+        Bad
+      </button>
+      <button
+        type="button"
+        className={`${css.button} ${css.reset}`}
+        onClick={onReset}
+      >
+        Reset
+      </button>
+    </div>
   );
 };
-
 export default VoteOptions;
